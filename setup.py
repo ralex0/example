@@ -7,5 +7,5 @@ setup(name='example',
       author='ralex0',
       author_email='ralex0@users.noreply.github.com',
       license='GPLv3',
-      packages=['pizza'],
+      packages=['example'],
       install_requires=['numpy'])
