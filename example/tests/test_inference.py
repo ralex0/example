@@ -1,4 +1,4 @@
-from inference.prior import LogUniformPrior, LogJefferysPrior
+from example.inference.prior import LogUniformPrior, LogJefferysPrior
 
 import numpy as np
 
