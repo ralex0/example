@@ -1,4 +1,4 @@
-from example.inference.prior import LogUniformPrior, LogJefferysPrior
+from example.inference.prior import LogUniformPrior, LogJefferysPrior, LogNormalPrior
 
 import numpy as np
 
@@ -13,6 +13,9 @@ class TestPriors(TestCase):
     def test_jefferys(self):
         assert np.allclose(np.exp(LogJefferysPrior(10, 1000)(100)),
                            0.0021714724095162588)
+        
+    def test_normal(self):
+        assert np.allclose(LogNormalPrior(0,1)(1), -0.5)
 
 if __name__ == '__main__':
     unittest.main()

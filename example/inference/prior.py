@@ -32,3 +32,12 @@ class LogJefferysPrior(Prior):
         return np.where(
             np.logical_and(x <= upper, x >= lower),
             -log(x) - log(log(upper / lower)), -inf)
+        
+class LogNormalPrior(Prior):
+    """
+    Returns the value of the Jefferys prior at position x for range xmin to xmax
+    """
+
+    def __call__(self, x):
+        mu, sig = self.params
+        return -(x-mu)**2/(2*sig**2)
