@@ -1,43 +1,32 @@
 import numpy as np
-from numpy import log, inf
+from numpy import log
 
 class Prior:
     """
     Prior Base class. This can store the shape parameters in the object instance 
     then be used as a function 
     """
+    def __init__(self, xmin, xmax):
+        self.xmin = xmin
+        self.xmax = xmax
 
-    def __init__(self, *shapeparams):
-        self.params = shapeparams
 
-
-class LogUniformPrior(Prior):
+class UniformPrior(Prior):
     """
     Returns the value of the uniform prior at position x for range xmin to xmax
     """
-
-    def __call__(self, x):
-        lower, upper = self.params
+    def logp(self, x):
         return np.where(
-            np.logical_and(x <= upper, x >= lower), -log(upper - lower), -inf)
+            np.logical_and(x <= self.xmax, x >= self.xmin),
+            -log(self.xmax - self.xmin), -np.inf)
 
 
-class LogJefferysPrior(Prior):
+class JefferysPrior(Prior):
     """
     Returns the value of the Jefferys prior at position x for range xmin to xmax
     """
 
-    def __call__(self, x):
-        lower, upper = self.params
+    def logp(self, x):
         return np.where(
-            np.logical_and(x <= upper, x >= lower),
-            -log(x) - log(log(upper / lower)), -inf)
-        
-class LogNormalPrior(Prior):
-    """
-    Returns the value of the Jefferys prior at position x for range xmin to xmax
-    """
-
-    def __call__(self, x):
-        mu, sig = self.params
-        return -(x-mu)**2/(2*sig**2)
+            np.logical_and(x <= self.xmax, x >= self.xmin),
+            -log(x) - log(log(self.xmax / self.xmin)), -np.inf)
